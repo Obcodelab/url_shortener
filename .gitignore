@@ -1,0 +1,22 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+
+# Virtual environment
+venv
+
+# Database
+*.db
+
+
+# Logs and Debug files
+logs/
+*.log
+
+# Vscode settings
+.vscode/
