@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
-from app.schemas.url import URLCreate, URLResponse
+from app.schemas.url import URLCreate, URLResponse, StatResponse
 from app.models.url import URL
 from app.core.config import SessionLocal
 from app.services.shortener import generate_short_code
@@ -49,7 +49,7 @@ def redirect_url(short_code: str, db: Session = Depends(get_db)):
     return RedirectResponse(url_entry.original_url)
 
 
-@router.get("/stats/{short_code}")
+@router.get("/stats/{short_code}", response_model=StatResponse)
 def get_url_stat(short_code: str, db: Session = Depends(get_db)):
     """Retrieve stats for a short url"""
     url_entry = db.query(URL).filter(URL.short_code == short_code).first()

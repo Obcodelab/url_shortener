@@ -12,3 +12,8 @@ class URLCreate(BaseModel):
 class URLResponse(BaseModel):
     original_url: HttpUrl
     short_code: str
+
+
+class StatResponse(URLResponse):
+    click_count: int
+    created_at: str
