@@ -35,7 +35,12 @@ source venv/bin/activate
 ```bash
 # On Windows
 python -m venv venv
+
+# For cmd and powershell
 venv\Scripts\activate
+
+# For git bash
+source venv\Scripts\activate
 ```
 
 ### 3️⃣ Install Dependencies
