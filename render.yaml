@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fastapi-url-shortener
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "./start.sh"
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        value: "sqlite:///./urls.db"
+    region: oregon # Choose your preferred region
