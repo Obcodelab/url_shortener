@@ -56,8 +56,10 @@ def shorten_url(url_data: URLCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/all_urls")
-def get_all_urls(db: Session = Depends(get_db)):
+def get_all_urls(admin_token: str = Header(None), db: Session = Depends(get_db)):
     """Retrieve all the urls in the database."""
+    if admin_token != admin_secret:
+        raise HTTPException(status_code=401, detail="Unauthorized")
     urls = db.query(URL).all()
     return {"status": "success", "message": "All URLs retrieved", "urls": urls}
 

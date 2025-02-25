@@ -10,6 +10,7 @@ class URLCreate(BaseModel):
 
 
 class URLResponse(BaseModel):
+    status: str
     original_url: HttpUrl
     short_code: str
     short_url: HttpUrl
