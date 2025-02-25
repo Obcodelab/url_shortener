@@ -12,6 +12,7 @@ class URLCreate(BaseModel):
 class URLResponse(BaseModel):
     original_url: HttpUrl
     short_code: str
+    new_url: HttpUrl
 
 
 class StatResponse(URLResponse):

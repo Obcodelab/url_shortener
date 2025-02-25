@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
@@ -6,7 +7,14 @@ from app.models.url import URL
 from app.core.config import SessionLocal
 from app.services.shortener import generate_short_code
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 router = APIRouter()
+
+backend_url = os.getenv("backend_url")
 
 
 def get_db():
@@ -33,7 +41,11 @@ def shorten_url(url_data: URLCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_url)
 
-    return {"original_url": new_url.original_url, "short_code": new_url.short_code}
+    return {
+        "original_url": new_url.original_url,
+        "short_code": new_url.short_code,
+        "new_url": f"{backend_url}/{new_url.short_code}",
+    }
 
 
 @router.get("/{short_code}")
@@ -59,6 +71,7 @@ def get_url_stat(short_code: str, db: Session = Depends(get_db)):
     return {
         "original_url": url_entry.original_url,
         "short_code": url_entry.short_code,
+        "new_url": f"{backend_url}/{url_entry.short_code}",
         "click_count": url_entry.click_count,
         "created_at": url_entry.created_at,
     }
