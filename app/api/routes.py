@@ -42,6 +42,7 @@ def shorten_url(url_data: URLCreate, db: Session = Depends(get_db)):
     db.refresh(new_url)
 
     return {
+        "status": "success",
         "original_url": new_url.original_url,
         "short_code": new_url.short_code,
         "new_url": f"{backend_url}/{new_url.short_code}",
@@ -69,6 +70,7 @@ def get_url_stat(short_code: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Short URL not found")
 
     return {
+        "status": "success",
         "original_url": url_entry.original_url,
         "short_code": url_entry.short_code,
         "new_url": f"{backend_url}/{url_entry.short_code}",
